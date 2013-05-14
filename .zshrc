@@ -52,6 +52,7 @@ alias grb='git rebase origin master'
 alias grevdate='/usr/bin/rev.sh'
 alias fucking='sudo'
 alias ffs='ffs.pl'
+alias gpoh='git push origin && git push heroku'
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
