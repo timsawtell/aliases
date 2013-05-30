@@ -1,21 +1,25 @@
 #!/usr/bin/perl
 use Cwd qw();
+
+my $pull = `git pull`;
+print $pull;
+
 my $pwd = Cwd::cwd();
 
 my $gitmodulesFile= ".gitmodules";
 
 my $init = `git submodule init`;
 if ($? != 0) {
-	die("couldn't init, quiting.");
+  die("couldn't init, quiting.");
 }
 my $update = `git submodule update`;
 if ($? != 0) {
-	die("couldn't update, quiting.");
+  die("couldn't update, quiting.");
 }
 
 # check for gitmodules file
 if (!-e "./".$gitmodules) {
-	exit(0);
+  exit(0);
 }
 
 open(gitModeulsFP, "./".$gitmodulesFile);
@@ -25,10 +29,10 @@ while (<gitModeulsFP>) {
     my $index = index($line, "path = ");
     my $startIndex = $index + 7;
     if ($index > 0) {
-    	my $strLen = length $line;
-    	my $path = substr $line, $startIndex, ($strLen - $index);
-    	chomp($path);
-    	my $fullPath = $pwd."/".$path;
+      my $strLen = length $line;
+      my $path = substr $line, $startIndex, ($strLen - $index);
+      chomp($path);
+      my $fullPath = $pwd."/".$path;
 
         #find the branch that you were on
         my @branches = `cd \"$fullPath\"; git branch >&1`;
@@ -52,7 +56,7 @@ while (<gitModeulsFP>) {
             my $pullCmd = `$command`;
         } else {
             #update all
-        	my $pullCmd = `cd "$fullPath"; git pull;`;
+          my $pullCmd = `cd "$fullPath"; git pull;`;
         }
     }
 }
